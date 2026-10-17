@@ -12,6 +12,7 @@ import Contact from "./pages/Contact";
 import EquiCube from "./pages/EquiCube";
 import Home from "./pages/Home";
 import Legal from "./pages/Legal";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
             {import.meta.env.DEV ? (
               <Route path="/kit" element={<Gallery />} />
             ) : null}
+            <Route path="*" element={<NotFound />} />
           </Route>
 
           <Route path="/intern" element={<AdminLayout />}>

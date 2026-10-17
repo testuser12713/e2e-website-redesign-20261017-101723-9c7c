@@ -110,6 +110,20 @@ describe("frontend shell", () => {
     });
   });
 
+  it("renders a readable not-found page inside the layout for unknown routes", () => {
+    renderAt("/diese-seite-gibt-es-nicht");
+
+    expect(screen.getByRole("banner")).toBeInTheDocument();
+    expect(screen.getByRole("contentinfo")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Seite nicht gefunden" }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Zur Startseite" })).toHaveAttribute(
+      "href",
+      "/",
+    );
+  });
+
   it("registers the development-only gallery route", async () => {
     renderAt("/kit");
 
