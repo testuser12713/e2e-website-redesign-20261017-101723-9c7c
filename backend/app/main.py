@@ -20,7 +20,7 @@ def frontend_origin() -> str:
     raw = os.environ.get("EQUICREW_FRONTEND_ORIGIN", "").strip()
     if not raw or "${" in raw:
         return DEFAULT_FRONTEND_ORIGIN
-    return raw
+    return raw.rstrip("/")
 
 
 @asynccontextmanager

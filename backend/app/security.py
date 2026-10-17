@@ -4,6 +4,8 @@ import hashlib
 import os
 import secrets
 from datetime import UTC, datetime, timedelta
+from typing import Any
+from urllib.parse import urlsplit
 
 import bcrypt
 from fastapi import Cookie, Depends, HTTPException
@@ -37,6 +39,48 @@ def session_ttl() -> timedelta:
             "it is declared in RUN.json for development."
         )
     return timedelta(hours=hours)
+
+
+def _origin_site(origin: str) -> tuple[str, str] | None:
+    """Return the scheme and host of an origin, or None when it is not a URL."""
+    try:
+        parts = urlsplit(origin)
+    except ValueError:
+        return None
+    if not parts.scheme or not parts.hostname:
+        return None
+    return parts.scheme.lower(), parts.hostname.lower()
+
+
+def session_cookie_attributes(
+    origin: str | None, request_scheme: str, request_host: str | None
+) -> dict[str, Any]:
+    """Pick cookie flags that let the session survive a cross-site browser/API split.
+
+    A browser fetches the API from the public frontend's page, so the cookie is
+    only sent back when both ends count as the same site. When the page origin
+    and the API host differ (``localhost`` vs ``127.0.0.1``, or http vs https),
+    the browser treats the request as cross-site: a ``SameSite=Lax`` cookie is
+    stored but never sent on the follow-up request, so the session looks empty.
+    Such a cookie needs ``SameSite=None`` and, because browsers only accept that
+    combination, the ``Secure`` flag. Loopback hosts are treated as secure
+    contexts, so this also works for the local development setup over http.
+    """
+    same_site = True
+    if origin:
+        parsed = _origin_site(origin)
+        if parsed is not None and request_host:
+            origin_scheme, origin_host = parsed
+            same_site = (
+                origin_scheme == request_scheme.lower() and origin_host == request_host.lower()
+            )
+    cross_site = not same_site
+    return {
+        "httponly": True,
+        "samesite": "none" if cross_site else "lax",
+        "secure": cross_site,
+        "path": "/",
+    }
 
 
 def as_utc(value: datetime) -> datetime:
