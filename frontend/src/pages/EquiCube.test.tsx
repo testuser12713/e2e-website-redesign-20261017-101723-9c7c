@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it } from "vitest";
 import EquiCube from "./EquiCube";
@@ -33,7 +33,48 @@ const ADVANTAGE_TITLES = [
   "Minimierter Platzbedarf",
 ];
 
+const CUBE_MODULES = [
+  "Wärmepumpe",
+  "Batterie",
+  "PV-Technik",
+  "Pufferspeicher",
+  "KI-Technik",
+];
+
 describe("EquiCube page", () => {
+  it("fills the hero visual card with the EquiCube composition", () => {
+    const { container } = renderPage();
+
+    const visual = container.querySelector<HTMLElement>(
+      '[data-od-id="equicube-product-visual"]',
+    );
+    expect(visual).not.toBeNull();
+    if (!visual) {
+      return;
+    }
+
+    const card = within(visual);
+
+    expect(card.getByText("EquiCube · ein System")).toBeInTheDocument();
+    expect(card.getByText("bis 40 kW")).toBeInTheDocument();
+    expect(
+      card.getByText("Heizleistung für Einfamilienhäuser"),
+    ).toBeInTheDocument();
+    expect(
+      card.getByText(/EquiCube mit Wärmepumpe, Batterie, PV-Technik/),
+    ).toBeInTheDocument();
+
+    for (const module of CUBE_MODULES) {
+      expect(card.getByText(module)).toBeInTheDocument();
+    }
+
+    expect(visual.querySelector("img")).toHaveAttribute(
+      "src",
+      "/equicrew-mark.svg",
+    );
+    expect(visual.querySelectorAll("li")).toHaveLength(CUBE_MODULES.length);
+  });
+
   it("renders every section of the approved screen", () => {
     const { container } = renderPage();
 

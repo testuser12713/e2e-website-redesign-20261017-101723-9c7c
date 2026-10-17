@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import Button from "../components/Button";
 import Card from "../components/Card";
 import Kicker from "../components/Kicker";
@@ -50,6 +51,124 @@ const ADVANTAGES = [
     text: "Mehrere Funktionen in einem System schaffen Raum im Technikraum.",
   },
 ];
+
+const CUBE_MODULES = [
+  "Wärmepumpe",
+  "Batterie",
+  "PV-Technik",
+  "Pufferspeicher",
+  "KI-Technik",
+];
+
+const VISUAL_STYLE: CSSProperties = {
+  margin: 0,
+  padding: "clamp(1.5rem, 4vw, 2.25rem)",
+};
+
+const VISUAL_RING_STYLE: CSSProperties = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  width: "min(74%, 340px)",
+  aspectRatio: "1",
+  border: "1px solid var(--color-border-strong)",
+  borderRadius: "50%",
+  transform: "translate(-50%, -50%)",
+};
+
+const VISUAL_CONTENT_STYLE: CSSProperties = {
+  position: "relative",
+  zIndex: 1,
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "clamp(0.9rem, 2vw, 1.25rem)",
+  width: "100%",
+  textAlign: "center",
+};
+
+const VISUAL_CHIP_STYLE: CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "0.55rem",
+  padding: "0.5rem 0.9rem",
+  border: "1px solid var(--color-border)",
+  borderRadius: "var(--radius-pill)",
+  background: "var(--color-surface)",
+  color: "var(--color-text-strong)",
+  fontSize: "0.76rem",
+  fontWeight: 600,
+  letterSpacing: "0.01em",
+};
+
+const VISUAL_DOT_STYLE: CSSProperties = {
+  width: 7,
+  height: 7,
+  flex: "0 0 7px",
+  borderRadius: "50%",
+  background: "var(--color-brand)",
+  boxShadow: "0 0 0 4px rgba(56, 206, 127, 0.14)",
+};
+
+const VISUAL_MARK_STYLE: CSSProperties = {
+  width: "min(38%, 160px)",
+  height: "auto",
+  filter: "drop-shadow(0 18px 24px rgba(16, 35, 29, 0.16))",
+};
+
+const VISUAL_MODULES_STYLE: CSSProperties = {
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "center",
+  gap: "0.4rem",
+  maxWidth: "34ch",
+  margin: 0,
+  padding: 0,
+  listStyle: "none",
+};
+
+const VISUAL_MODULE_STYLE: CSSProperties = {
+  padding: "0.35rem 0.7rem",
+  border: "1px solid var(--color-border)",
+  borderRadius: "var(--radius-pill)",
+  background: "var(--color-surface)",
+  color: "var(--color-text-muted)",
+  fontFamily: "var(--font-mono)",
+  fontSize: "0.62rem",
+  letterSpacing: "0.08em",
+  textTransform: "uppercase",
+};
+
+const VISUAL_STAT_STYLE: CSSProperties = {
+  display: "grid",
+  gap: "0.2rem",
+  padding: "0.85rem 1.15rem",
+  borderRadius: "var(--radius-md)",
+  boxShadow: "var(--shadow-soft)",
+  textAlign: "left",
+};
+
+const VISUAL_STAT_VALUE_STYLE: CSSProperties = {
+  color: "var(--color-text)",
+  fontFamily: "var(--font-display)",
+  fontSize: "1.65rem",
+  fontWeight: 400,
+  letterSpacing: "-0.045em",
+  lineHeight: 1,
+};
+
+const VISUAL_STAT_LABEL_STYLE: CSSProperties = {
+  color: "var(--color-text-muted)",
+  fontSize: "0.74rem",
+  lineHeight: 1.4,
+};
+
+const VISUAL_CAPTION_STYLE: CSSProperties = {
+  maxWidth: "36ch",
+  color: "var(--color-text-muted)",
+  fontSize: "0.72rem",
+  lineHeight: 1.4,
+};
 
 function ArrowIcon() {
   return (
@@ -105,13 +224,52 @@ export default function EquiCube() {
               <li>Montage in über 2 Stunden</li>
             </ul>
           </div>
-          <div
+          <figure
             className="equicube-visual"
             data-od-id="equicube-product-visual"
-            aria-hidden="true"
+            aria-labelledby="equicube-visual-caption"
+            style={VISUAL_STYLE}
           >
-            <span className="equicube-visual__ring" />
-          </div>
+            <span
+              className="equicube-visual__ring"
+              aria-hidden="true"
+              style={VISUAL_RING_STYLE}
+            />
+            <div style={VISUAL_CONTENT_STYLE}>
+              <span style={VISUAL_CHIP_STYLE}>
+                <span aria-hidden="true" style={VISUAL_DOT_STYLE} />
+                EquiCube · ein System
+              </span>
+              <img
+                src="/equicrew-mark.svg"
+                width={180}
+                height={180}
+                alt=""
+                aria-hidden="true"
+                style={VISUAL_MARK_STYLE}
+              />
+              <ul style={VISUAL_MODULES_STYLE}>
+                {CUBE_MODULES.map((module) => (
+                  <li key={module} style={VISUAL_MODULE_STYLE}>
+                    {module}
+                  </li>
+                ))}
+              </ul>
+              <Card style={VISUAL_STAT_STYLE}>
+                <strong style={VISUAL_STAT_VALUE_STYLE}>bis 40 kW</strong>
+                <span style={VISUAL_STAT_LABEL_STYLE}>
+                  Heizleistung für Einfamilienhäuser
+                </span>
+              </Card>
+              <figcaption
+                id="equicube-visual-caption"
+                style={VISUAL_CAPTION_STYLE}
+              >
+                EquiCube mit Wärmepumpe, Batterie, PV-Technik und
+                Pufferspeicher
+              </figcaption>
+            </div>
+          </figure>
         </div>
       </Section>
 
