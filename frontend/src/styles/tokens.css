@@ -21,6 +21,9 @@
   --color-primary: #0b7057;
   --color-primary-strong: #07543f;
   --color-primary-soft: #ddf0e8;
+  /* Names the skeleton's global styles keep consuming. */
+  --color-accent: var(--color-primary);
+  --color-accent-soft: var(--color-primary-soft);
   --color-brand: #38ce7f;
   --color-lime: #d6ea8b;
   --color-danger: #b42318;
@@ -56,9 +59,9 @@
 
   /* Typography */
   --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua",
-    Georgia, "Times New Roman", serif;
+    Georgia, serif;
   --font-body: "Aptos", "Segoe UI Variable Text", "Segoe UI", system-ui,
-    -apple-system, "Helvetica Neue", Arial, sans-serif;
+    sans-serif;
   --font-mono: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
@@ -101,7 +104,7 @@
   /* Layout */
   --page-max: 84.5rem;
   --content-narrow: 53.75rem;
-  --gutter: clamp(0.875rem, 4vw, 3.5rem);
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
   --header-height: 4.75rem;
 
   /* Elevation and motion */
