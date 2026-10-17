@@ -125,7 +125,7 @@ export default function About() {
       >
         <figure className="about-team__figure">
           <img
-            src="/equicrew-background.jpg"
+            src="/media/3a55ef-12e8654dd7424476a506c0e5f67670fd-mv2.jpg"
             width={2228}
             height={1294}
             alt=""
