@@ -54,7 +54,7 @@ describe("About page", () => {
     expect(description?.content).toContain("Christian Hinterreiter");
   });
 
-  it("shows recognisable imagery in the team figure", () => {
+  it("renders the team section without an image area when no team photo was delivered", () => {
     renderAbout();
 
     const section = document.querySelector<HTMLElement>(
@@ -65,10 +65,16 @@ describe("About page", () => {
     const figure = section?.querySelector("figure");
     expect(figure).not.toBeNull();
 
-    const image = within(figure as HTMLElement).getByRole("img");
-    expect(image.getAttribute("src")).toMatch(/^\/media\/.+\.jpe?g$/);
-    expect(image).toHaveAttribute("alt");
-    expect(image.getAttribute("alt")).not.toBe("");
+    expect(within(figure as HTMLElement).queryByRole("img")).toBeNull();
+    expect(figure?.querySelector("img")).toBeNull();
+    expect(
+      within(figure as HTMLElement).getByText(
+        "Die Menschen hinter EquiCrew – gemeinsam in Mauthausen.",
+      ),
+    ).toBeInTheDocument();
+    expect(
+      within(figure as HTMLElement).getByText("EquiCrew FlexCo"),
+    ).toBeInTheDocument();
   });
 
   it.each(FOUNDERS)(
