@@ -134,10 +134,7 @@
   "demo_accounts": {
     "admin": {
       "login": "demo@equicrew.com",
-      "password": "EquiCrew-Demo-2026",
-      "apps": [
-        "web"
-      ]
+      "password": "EquiCrew-Demo-2026"
     }
   }
 }
