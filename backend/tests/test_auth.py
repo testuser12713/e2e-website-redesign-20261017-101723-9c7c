@@ -122,6 +122,57 @@ def test_login_me_logout_flow(client: TestClient) -> None:
         assert reuse.get("/api/auth/me").status_code == 401
 
 
+def test_session_cookie_stays_lax_for_a_same_site_frontend() -> None:
+    reset_database()
+    create_account()
+
+    with TestClient(app, base_url="http://localhost:8000") as same_site:
+        response = same_site.post(
+            "/api/auth/login",
+            json={"email": EMAIL, "password": PASSWORD},
+            headers={"Origin": "http://localhost:5173"},
+        )
+
+    assert response.status_code == 200
+    set_cookie = response.headers["set-cookie"].lower()
+    assert "samesite=lax" in set_cookie
+    assert "secure" not in set_cookie
+
+
+def test_session_cookie_survives_a_cross_site_frontend_and_api() -> None:
+    """The page on localhost must reach an API on 127.0.0.1 with its session."""
+    reset_database()
+    create_account()
+    origin = "http://localhost:5173"
+
+    with TestClient(app, base_url="http://127.0.0.1:8000") as cross_site:
+        response = cross_site.post(
+            "/api/auth/login",
+            json={"email": EMAIL, "password": PASSWORD},
+            headers={"Origin": origin},
+        )
+
+        assert response.status_code == 200
+        set_cookie = response.headers["set-cookie"].lower()
+        assert f"{SESSION_COOKIE_NAME}=" in set_cookie
+        assert "httponly" in set_cookie
+        assert "path=/" in set_cookie
+        assert "samesite=none" in set_cookie
+        assert "; secure" in set_cookie
+
+        # Browsers treat loopback hosts as secure contexts and send such a
+        # cookie; the in-process client's jar does not, so place it explicitly.
+        cross_site.cookies.set(SESSION_COOKIE_NAME, session_token_from(response))
+        me = cross_site.get("/api/auth/me", headers={"Origin": origin})
+        assert me.status_code == 200
+        assert me.json() == {"email": EMAIL}
+
+        logout = cross_site.post("/api/auth/logout", headers={"Origin": origin})
+        assert logout.status_code == 204
+        assert "samesite=none" in logout.headers["set-cookie"].lower()
+        assert cross_site.get("/api/auth/me", headers={"Origin": origin}).status_code == 401
+
+
 def test_wrong_credentials_share_one_indistinguishable_response(client: TestClient) -> None:
     create_account()
 

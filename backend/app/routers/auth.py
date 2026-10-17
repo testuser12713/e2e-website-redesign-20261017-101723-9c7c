@@ -1,6 +1,6 @@
 """Router for internal sign-in, sign-out and the current account."""
 
-from fastapi import APIRouter, Cookie, Depends, HTTPException, Response
+from fastapi import APIRouter, Cookie, Depends, HTTPException, Request, Response
 from sqlalchemy.orm import Session as DatabaseSession
 
 from app.db import get_db
@@ -13,15 +13,26 @@ from app.security import (
     create_session,
     delete_session,
     require_user,
+    session_cookie_attributes,
     session_ttl,
 )
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
 
+def _cookie_attributes(request: Request) -> dict[str, object]:
+    """Cookie flags matching the site relationship between page and API."""
+    return session_cookie_attributes(
+        request.headers.get("origin"),
+        request.url.scheme,
+        request.url.hostname,
+    )
+
+
 @router.post("/login", response_model=MeOut)
 def login(
     payload: LoginPayload,
+    request: Request,
     response: Response,
     db: DatabaseSession = Depends(get_db),
 ) -> MeOut:
@@ -35,15 +46,14 @@ def login(
         key=SESSION_COOKIE_NAME,
         value=token,
         max_age=int(session_ttl().total_seconds()),
-        httponly=True,
-        samesite="lax",
-        path="/",
+        **_cookie_attributes(request),
     )
     return MeOut(email=user.email)
 
 
 @router.post("/logout", status_code=204)
 def logout(
+    request: Request,
     equicrew_session: str | None = Cookie(default=None, alias=SESSION_COOKIE_NAME),
     db: DatabaseSession = Depends(get_db),
 ) -> Response:
@@ -53,9 +63,7 @@ def logout(
     response = Response(status_code=204)
     response.delete_cookie(
         key=SESSION_COOKIE_NAME,
-        path="/",
-        httponly=True,
-        samesite="lax",
+        **_cookie_attributes(request),
     )
     return response
 
