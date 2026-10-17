@@ -53,6 +53,13 @@
           "-q"
         ]
       ],
+      "seed": [
+        [
+          "${python}",
+          "-m",
+          "app.seed"
+        ]
+      ],
       "lint": [
         [
           "${python}",
@@ -123,5 +130,14 @@
         }
       }
     }
-  ]
+  ],
+  "demo_accounts": {
+    "admin": {
+      "login": "demo@equicrew.com",
+      "password": "EquiCrew-Demo-2026",
+      "apps": [
+        "web"
+      ]
+    }
+  }
 }
