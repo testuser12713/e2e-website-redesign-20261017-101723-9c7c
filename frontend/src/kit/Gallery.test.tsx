@@ -194,26 +194,50 @@ describe("UI-kit gallery", () => {
     }
   });
 
-  it("opens and closes the mobile navigation with the toggle", () => {
+  it("does not lock the page when the mobile toggle is triggered at desktop width", () => {
     renderGallery();
 
     const toggle = screen.getByTestId("gallery-nav-toggle");
-    const navigation = screen.getByRole("navigation", {
-      name: "Hauptnavigation",
-    });
-
-    expect(toggle).toHaveAttribute("aria-expanded", "false");
 
     fireEvent.click(toggle);
-    expect(toggle).toHaveAttribute("aria-expanded", "true");
-    expect(toggle).toHaveTextContent("Schließen");
-    expect(navigation).toHaveClass("is-open");
-    expect(document.body).toHaveClass("menu-open");
 
-    fireEvent.keyDown(document, { key: "Escape" });
     expect(toggle).toHaveAttribute("aria-expanded", "false");
-    expect(toggle).toHaveTextContent("Menü");
-    expect(navigation).not.toHaveClass("is-open");
     expect(document.body).not.toHaveClass("menu-open");
+  });
+
+  it("opens and closes the mobile navigation with the toggle", () => {
+    const originalWidth = window.innerWidth;
+    Object.defineProperty(window, "innerWidth", {
+      configurable: true,
+      value: 360,
+    });
+
+    try {
+      renderGallery();
+
+      const toggle = screen.getByTestId("gallery-nav-toggle");
+      const navigation = screen.getByRole("navigation", {
+        name: "Hauptnavigation",
+      });
+
+      expect(toggle).toHaveAttribute("aria-expanded", "false");
+
+      fireEvent.click(toggle);
+      expect(toggle).toHaveAttribute("aria-expanded", "true");
+      expect(toggle).toHaveTextContent("Schließen");
+      expect(navigation).toHaveClass("is-open");
+      expect(document.body).toHaveClass("menu-open");
+
+      fireEvent.keyDown(document, { key: "Escape" });
+      expect(toggle).toHaveAttribute("aria-expanded", "false");
+      expect(toggle).toHaveTextContent("Menü");
+      expect(navigation).not.toHaveClass("is-open");
+      expect(document.body).not.toHaveClass("menu-open");
+    } finally {
+      Object.defineProperty(window, "innerWidth", {
+        configurable: true,
+        value: originalWidth,
+      });
+    }
   });
 });

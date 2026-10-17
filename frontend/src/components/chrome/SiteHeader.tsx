@@ -5,6 +5,15 @@ import Button from "../Button";
 import { cn } from "../../lib/cn";
 import "./SiteHeader.css";
 
+const MOBILE_MEDIA_QUERY = "(max-width: 980px)";
+
+function isMobileViewport(): boolean {
+  if (typeof window.matchMedia === "function") {
+    return window.matchMedia(MOBILE_MEDIA_QUERY).matches;
+  }
+  return window.innerWidth <= 980;
+}
+
 const NAVIGATION = [
   { to: "/", label: "Start" },
   { to: "/equicube", label: "EquiCube" },
@@ -28,7 +37,11 @@ export default function SiteHeader({
   const restoreFocusRef = useRef(false);
 
   useEffect(() => {
-    document.body.classList.toggle("menu-open", menuOpen);
+    const isMobile = isMobileViewport();
+    document.body.classList.toggle("menu-open", menuOpen && isMobile);
+    if (menuOpen && !isMobile) {
+      setMenuOpen(false);
+    }
     return () => {
       document.body.classList.remove("menu-open");
     };
@@ -70,6 +83,13 @@ export default function SiteHeader({
     };
   }, [menuOpen]);
 
+  const handleToggle = () => {
+    if (!menuOpen && !isMobileViewport()) {
+      return;
+    }
+    setMenuOpen((open) => !open);
+  };
+
   return (
     <>
       <a className="skip-link" href="#main-content">
@@ -110,7 +130,7 @@ export default function SiteHeader({
             aria-expanded={menuOpen}
             aria-controls={navId}
             data-testid={navToggleTestId}
-            onClick={() => setMenuOpen((open) => !open)}
+            onClick={handleToggle}
           >
             <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
               <path
