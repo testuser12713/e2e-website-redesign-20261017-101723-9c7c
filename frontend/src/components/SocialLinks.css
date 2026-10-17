@@ -1,0 +1,36 @@
+.social-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-dark-line);
+  border-radius: 50%;
+  color: var(--color-dark-link);
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.social-link:hover {
+  border-color: var(--color-brand);
+  background: var(--color-brand);
+  color: var(--color-dark);
+}
+
+.social-link:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.social-link svg {
+  width: 17px;
+  height: 17px;
+}

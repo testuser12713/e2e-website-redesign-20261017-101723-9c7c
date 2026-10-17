@@ -1,0 +1,71 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  flex-shrink: 0;
+  min-width: 0;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.brand:hover {
+  color: var(--color-text);
+}
+
+.brand-mark {
+  width: 31px;
+  height: 31px;
+  flex: 0 0 31px;
+}
+
+.brand-word {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 1.42rem;
+  font-weight: 750;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.brand-sub {
+  display: block;
+  margin-top: 3px;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.brand--dark,
+.brand--dark:hover {
+  color: var(--color-on-primary);
+}
+
+.brand--dark .brand-word {
+  color: var(--color-on-primary);
+}
+
+.brand--dark .brand-sub {
+  color: var(--color-dark-muted);
+}
+
+@media (max-width: 780px) {
+  .brand-mark {
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+  }
+
+  .brand-word {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand-word {
+    font-size: 1.18rem;
+  }
+}

@@ -1,52 +1,75 @@
 /*
- * EquiCrew design tokens.
+ * EquiCrew design tokens, aligned with the approved mockup set
+ * (design/mockups/styles.css).
  *
  * Mobile-first: every value below is the base used from the smallest approved
- * width (360px) upwards. Layout refinements live in global.css.
+ * width (360px) upwards. Layout refinements live in the component styles.
  */
 :root {
   color-scheme: light;
 
   /* Colours */
-  --color-bg: #f6f4ee;
+  --color-bg: #f3f5f1;
   --color-surface: #ffffff;
-  --color-surface-muted: #ecefe8;
-  --color-text: #18241d;
-  --color-text-muted: #526258;
-  --color-border: #d7ddd4;
-  --color-primary: #1f6b4d;
-  --color-primary-strong: #154c37;
-  --color-primary-soft: #e2eee7;
-  --color-accent: #c8872f;
-  --color-accent-soft: #f6e8d2;
-  --color-danger: #a5342b;
-  --color-danger-soft: #f8e3e0;
-  --color-focus: #0b5f86;
+  --color-surface-muted: #eaf0ea;
+  --color-surface-strong: #e1eade;
+  --color-text: #10231d;
+  --color-text-strong: #18352b;
+  --color-text-muted: #5d6c66;
+  --color-border: #d6e0d8;
+  --color-border-strong: #b7c5ba;
+  --color-primary: #0b7057;
+  --color-primary-strong: #07543f;
+  --color-primary-soft: #ddf0e8;
+  --color-brand: #38ce7f;
+  --color-lime: #d6ea8b;
+  --color-danger: #b42318;
+  --color-danger-soft: #fcebe9;
+  --color-focus: #2768e8;
   --color-on-primary: #ffffff;
+  --color-dark: #0b1e17;
+  --color-dark-2: #123329;
+  --color-dark-line: #2a5043;
+  --color-dark-muted: #a7bbb2;
+  --color-on-dark: #f1f7f3;
+  --color-on-dark-strong: #f5faf7;
+  --color-dark-link: #dce8e1;
+
+  /* Field and feedback surfaces */
+  --color-field-bg: #fcfdfb;
+  --color-placeholder: #899790;
+  --color-success-bg: #edf8f1;
+  --color-success-border: #bfe3cf;
+  --color-error-bg: #fdf1ef;
+  --color-error-border: #f0c5c0;
 
   /* Inquiry status colours */
-  --color-status-new: #1f6b4d;
-  --color-status-new-bg: #e2eee7;
-  --color-status-read: #8a5a12;
-  --color-status-read-bg: #f6e8d2;
-  --color-status-done: #4c5560;
-  --color-status-done-bg: #e8eaec;
+  --color-status-new: #764800;
+  --color-status-new-bg: #fff2d8;
+  --color-status-new-dot: #b97600;
+  --color-status-read: #2c4c68;
+  --color-status-read-bg: #e9f0f7;
+  --color-status-read-dot: #526f8a;
+  --color-status-done: #0b5e49;
+  --color-status-done-bg: #e4f3ea;
+  --color-status-done-dot: #0b7057;
 
   /* Typography */
-  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia,
-    "Times New Roman", serif;
-  --font-body: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial,
-    sans-serif;
+  --font-display: "Iowan Old Style", "Palatino Linotype", "Book Antiqua",
+    Georgia, "Times New Roman", serif;
+  --font-body: "Aptos", "Segoe UI Variable Text", "Segoe UI", system-ui,
+    -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Cascadia Mono", "SFMono-Regular", Consolas, monospace;
   --font-size-xs: 0.75rem;
   --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
+  --font-size-base: 1.03125rem;
   --font-size-md: 1.0625rem;
   --font-size-lg: 1.25rem;
   --font-size-xl: 1.5rem;
   --font-size-2xl: 1.875rem;
   --font-size-3xl: clamp(2.125rem, 7vw, 3.5rem);
   --line-height-tight: 1.15;
-  --line-height-base: 1.65;
+  --line-height-base: 1.62;
   --font-weight-regular: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -66,19 +89,68 @@
   --space-9: 6rem;
 
   /* Radii */
-  --radius-sm: 0.375rem;
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
-  --radius-lg: 1.25rem;
+  --radius-lg: 1.125rem;
+  --radius-xl: 1.625rem;
+  --radius-2xl: 2.125rem;
+  --radius-control: 0.625rem;
   --radius-pill: 999px;
 
   /* Layout */
-  --page-max: 70rem;
-  --gutter: clamp(1rem, 5vw, 2.5rem);
-  --header-height: 4.5rem;
+  --page-max: 84.5rem;
+  --content-narrow: 53.75rem;
+  --gutter: clamp(0.875rem, 4vw, 3.5rem);
+  --header-height: 4.75rem;
 
   /* Elevation and motion */
-  --shadow-sm: 0 1px 2px rgb(24 36 29 / 8%);
-  --shadow-md: 0 10px 30px rgb(24 36 29 / 12%);
-  --transition-fast: 150ms ease;
-  --transition-base: 220ms ease;
+  --shadow-sm: 0 1px 2px rgb(16 35 29 / 8%);
+  --shadow-md: 0 10px 30px rgb(16 35 29 / 12%);
+  --shadow-soft: 0 8px 24px rgba(16, 35, 29, 0.06);
+  --shadow-float: 0 18px 50px rgba(16, 35, 29, 0.09);
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --transition-fast: 160ms var(--ease);
+  --transition-base: 220ms var(--ease);
+
+  /*
+   * Aliases kept under the names the approved mockup stylesheet uses
+   * (design/mockups/styles.css), so page styles can build on the same values.
+   */
+  --canvas: var(--color-bg);
+  --surface: var(--color-surface);
+  --surface-2: var(--color-surface-muted);
+  --surface-3: var(--color-surface-strong);
+  --ink: var(--color-text);
+  --ink-2: var(--color-text-strong);
+  --muted: var(--color-text-muted);
+  --line: var(--color-border);
+  --line-strong: var(--color-border-strong);
+  --accent: var(--color-primary);
+  --accent-strong: var(--color-primary-strong);
+  --accent-soft: var(--color-primary-soft);
+  --brand: var(--color-brand);
+  --lime: var(--color-lime);
+  --danger: var(--color-danger);
+  --danger-soft: var(--color-danger-soft);
+  --focus: var(--color-focus);
+  --new-bg: var(--color-status-new-bg);
+  --new-fg: var(--color-status-new);
+  --new-dot: var(--color-status-new-dot);
+  --read-bg: var(--color-status-read-bg);
+  --read-fg: var(--color-status-read);
+  --read-dot: var(--color-status-read-dot);
+  --done-bg: var(--color-status-done-bg);
+  --done-fg: var(--color-status-done);
+  --done-dot: var(--color-status-done-dot);
+  --dark: var(--color-dark);
+  --dark-2: var(--color-dark-2);
+  --dark-line: var(--color-dark-line);
+  --dark-muted: var(--color-dark-muted);
+  --r-xs: var(--radius-xs);
+  --r-sm: var(--radius-sm);
+  --r-md: var(--radius-md);
+  --r-lg: var(--radius-lg);
+  --r-xl: var(--radius-xl);
+  --r-2xl: var(--radius-2xl);
 }

@@ -74,7 +74,7 @@ describe("frontend shell", () => {
   it("applies the design tokens to the shell", () => {
     renderAt("/");
 
-    expect(tokensCss).toContain("--color-primary: #1f6b4d");
+    expect(tokensCss).toContain("--color-primary: #0b7057");
     expect(tokensCss).toContain("--font-display:");
     expect(tokensCss).toContain("--space-4: 1rem");
     expect(tokensCss).toContain("--radius-md: 0.75rem");
@@ -85,7 +85,7 @@ describe("frontend shell", () => {
     try {
       const rootStyle = getComputedStyle(document.documentElement);
       expect(rootStyle.getPropertyValue("--color-primary").trim()).toBe(
-        "#1f6b4d",
+        "#0b7057",
       );
       expect(rootStyle.getPropertyValue("--space-4").trim()).toBe("1rem");
     } finally {
