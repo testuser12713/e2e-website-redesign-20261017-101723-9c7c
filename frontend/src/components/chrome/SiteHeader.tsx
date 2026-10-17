@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Brand from "../Brand";
 import Button from "../Button";
 import { cn } from "../../lib/cn";
@@ -31,6 +31,8 @@ export default function SiteHeader({
   navId = "site-nav",
   navToggleTestId = "nav-toggle",
 }: SiteHeaderProps) {
+  const location = useLocation();
+  const onContactPage = location.pathname === "/kontakt";
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const navRef = useRef<HTMLElement>(null);
@@ -118,9 +120,20 @@ export default function SiteHeader({
           </nav>
 
           <div className="header-actions">
-            <Button to="/kontakt" variant="primary" size="sm">
-              Jetzt anfragen
-            </Button>
+            {onContactPage ? (
+              <Button
+                href="#contact-form-heading"
+                variant="primary"
+                size="sm"
+                onClick={() => setMenuOpen(false)}
+              >
+                Zum Formular
+              </Button>
+            ) : (
+              <Button to="/kontakt" variant="primary" size="sm">
+                Jetzt anfragen
+              </Button>
+            )}
           </div>
 
           <button
