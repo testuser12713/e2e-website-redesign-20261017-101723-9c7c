@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="screen-route" content="/intern/login">
+  <title>Interner Bereich – Anmeldung</title>
+  <meta name="description" content="Anmeldung für den internen Bereich von EquiCrew: Anfragen lesen und Status setzen.">
+  <link rel="icon" href="assets/equicrew-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body class="login-page">
+<!-- serves: AC-11, AC-12, AC-14, AC-15, AC-16, AC-17, AC-18, AC-19 -->
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+<main id="main" class="login-shell">
+  <section class="login-brand" aria-labelledby="login-brand-heading">
+    <a class="brand" href="start.html" aria-label="equicrew smart energy – Startseite">
+      <img class="brand-mark" src="assets/equicrew-icon.svg" width="31" height="31" alt="">
+      <span>
+        <span class="brand-word">equicrew</span>
+        <span class="brand-sub">smart energy</span>
+      </span>
+    </a>
+
+    <h2 id="login-brand-heading" class="login-statement">Deine Anfragen.<br>Deine <em>Crew.</em></h2>
+
+    <div class="login-brand-foot">
+      <span>Interner Bereich</span>
+      <span aria-hidden="true">·</span>
+      <a href="start.html">Zur Website</a>
+    </div>
+  </section>
+
+  <section class="login-panel" aria-labelledby="login-heading">
+    <div class="login-card">
+      <span class="kicker">Anmeldung</span>
+      <h1 id="login-heading">Willkommen zurück.</h1>
+      <p class="lede">Melde dich an, um die Anfragen aus dem Kontaktformular zu lesen und ihren Status zu setzen.</p>
+
+      <form class="login-form" data-login-form novalidate>
+        <div class="login-error" data-login-form-error role="alert" aria-live="assertive"></div>
+
+        <div class="field">
+          <label for="login-email">E-Mail-Adresse</label>
+          <input class="input" type="email" id="login-email" name="email" autocomplete="username" inputmode="email" placeholder="du@equicrew.com" aria-describedby="login-email-error" required>
+          <span class="field-error" id="login-email-error" data-login-error="email" aria-live="polite"></span>
+        </div>
+
+        <div class="field">
+          <label for="login-password">Passwort</label>
+          <input class="input" type="password" id="login-password" name="password" autocomplete="current-password" placeholder="Dein Passwort" aria-describedby="login-password-error" required>
+          <span class="field-error" id="login-password-error" data-login-error="password" aria-live="polite"></span>
+        </div>
+
+        <button class="btn btn-primary" type="submit">
+          Anmelden
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+
+      <details class="demo-hint">
+        <summary>Zugangsdaten für den Prototyp</summary>
+        <p>E-Mail: <code>demo@equicrew.com</code><br>Passwort: <code>EquiCrew-Demo-2026</code></p>
+        <p>Die Demo-Anmeldung läuft ausschließlich in deinem Browser.</p>
+      </details>
+
+      <a class="login-back" href="start.html">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Zurück zur Website
+      </a>
+    </div>
+  </section>
+</main>
+</body>
+</html>

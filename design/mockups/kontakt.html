@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="screen-route" content="/kontakt">
+  <title>Kontakt – frag EquiCrew</title>
+  <meta name="description" content="Schreib EquiCrew: Vorname, Nachname, E-Mail und Nachricht genügen. Du findest uns am Marktplatz 14 in Mauthausen, per Telefon und E-Mail.">
+  <link rel="icon" href="assets/equicrew-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+<!-- serves: AC-01, AC-02, AC-03, AC-04, AC-05, AC-06, AC-15, AC-16, AC-17, AC-18, AC-19 -->
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+<header class="site-header" data-od-id="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="start.html" aria-label="equicrew smart energy – Startseite">
+      <img class="brand-mark" src="assets/equicrew-icon.svg" width="31" height="31" alt="">
+      <span>
+        <span class="brand-word">equicrew</span>
+        <span class="brand-sub">smart energy</span>
+      </span>
+    </a>
+    <nav class="site-nav" id="site-nav" data-site-nav aria-label="Hauptnavigation">
+      <a href="start.html">Start</a>
+      <a href="equicube.html">EquiCube</a>
+      <a href="ueber-uns.html">Über uns</a>
+      <a href="kontakt.html" aria-current="page">Kontakt</a>
+      <a href="impressum.html">Impressum</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-primary btn-sm" href="kontakt.html">Jetzt anfragen</a>
+    </div>
+    <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">
+      <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+      <span data-nav-label>Menü</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-hero" data-od-id="contact-hero">
+    <div class="container">
+      <span class="kicker">Kontakt</span>
+      <h1 class="page-title">Erzähl uns von deinem Vorhaben.</h1>
+      <p class="lede">Ein paar Zeilen genügen. Schreib uns, was du planst, und wir melden uns persönlich bei dir.</p>
+    </div>
+  </section>
+
+  <section class="section-sm" aria-labelledby="contact-form-heading" data-od-id="contact-form">
+    <div class="container contact-layout">
+      <div class="form-card">
+        <div class="form-head">
+          <h2 id="contact-form-heading">Deine Nachricht an EquiCrew</h2>
+          <p>Alle Felder sind erforderlich.</p>
+        </div>
+
+        <div class="form-status status-success" data-contact-success role="status" aria-live="polite">
+          <span class="form-status-icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M4 10.5l3.6 3.5L16 5.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <div>
+            <strong>Danke für deine Nachricht!</strong>
+            <p>Deine Anfrage ist bei uns eingegangen und wurde gespeichert. Das Formular ist jetzt wieder leer.</p>
+          </div>
+        </div>
+
+        <div class="form-status status-error" data-contact-error role="alert" aria-live="assertive">
+          <span class="form-status-icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none"><path d="M10 6.2v4.6M10 14.1v.2M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          </span>
+          <div>
+            <strong>Deine Nachricht konnte nicht gespeichert werden.</strong>
+            <p>Deine Eingaben bleiben erhalten. Bitte prüfe deine Verbindung und versuche es erneut.</p>
+          </div>
+        </div>
+
+        <form data-contact-form novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="first_name">Vorname <span class="required" aria-hidden="true">*</span></label>
+              <input class="input" type="text" id="first_name" name="first_name" autocomplete="given-name" placeholder="z. B. Anna" aria-describedby="error-first-name" required>
+              <span class="field-error" id="error-first-name" data-error-for="first_name" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="last_name">Nachname <span class="required" aria-hidden="true">*</span></label>
+              <input class="input" type="text" id="last_name" name="last_name" autocomplete="family-name" placeholder="z. B. Gruber" aria-describedby="error-last-name" required>
+              <span class="field-error" id="error-last-name" data-error-for="last_name" aria-live="polite"></span>
+            </div>
+            <div class="field field-full">
+              <label for="email">E-Mail-Adresse <span class="required" aria-hidden="true">*</span></label>
+              <input class="input" type="email" id="email" name="email" autocomplete="email" inputmode="email" placeholder="anna.gruber@beispiel.at" aria-describedby="error-email" required>
+              <span class="field-error" id="error-email" data-error-for="email" aria-live="polite"></span>
+            </div>
+            <div class="field field-full">
+              <label for="message">Nachricht <span class="required" aria-hidden="true">*</span></label>
+              <textarea class="textarea" id="message" name="message" placeholder="Erzähl uns kurz von deinem Haus, deiner bestehenden Heizung oder deinem geplanten Projekt …" aria-describedby="error-message" required></textarea>
+              <span class="field-error" id="error-message" data-error-for="message" aria-live="polite"></span>
+            </div>
+          </div>
+          <div class="form-footer">
+            <p class="form-note">Deine Angaben werden ausschließlich zur Beantwortung deiner Anfrage verwendet.</p>
+            <button class="btn btn-primary" type="submit" data-submit>
+              Nachricht senden
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <aside class="contact-panel" data-od-id="contact-details" aria-labelledby="contact-details-heading">
+        <span class="kicker">Direkt erreichbar</span>
+        <h2 id="contact-details-heading">Lieber persönlich?</h2>
+
+        <div class="contact-block">
+          <p class="contact-label">Adresse</p>
+          <address>
+            EquiCrew FlexCo<br>
+            Marktplatz 14<br>
+            4310 Mauthausen<br>
+            Österreich
+          </address>
+        </div>
+
+        <div class="contact-block">
+          <p class="contact-label">Telefon</p>
+          <p><a href="tel:+436504593129">+43&nbsp;650&nbsp;4593&nbsp;129</a></p>
+        </div>
+
+        <div class="contact-block">
+          <p class="contact-label">E-Mail</p>
+          <p><a href="mailto:office@equicrew.com">office@equicrew.com</a></p>
+        </div>
+
+        <div class="contact-block">
+          <p class="contact-label">Folge uns</p>
+          <div class="social-row">
+            <a class="social-link" href="https://www.linkedin.com/company/equicrew/" target="_blank" rel="noopener noreferrer" aria-label="EquiCrew auf LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM20 13.27c0-3.53-1.88-5.17-4.4-5.17-2.03 0-2.94 1.12-3.45 1.9V8.5H8.77V20h3.38v-6.42c0-1.7.32-3.35 2.43-3.35 2.08 0 2.1 1.95 2.1 3.46V20H20v-6.73Z"/></svg>
+            </a>
+            <a class="social-link" href="https://www.instagram.com/equicrew_com/" target="_blank" rel="noopener noreferrer" aria-label="EquiCrew auf Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.6" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <p class="contact-side-note">Deine Nachricht geht direkt an unser Team in Mauthausen. Keine Weitergabe, kein Tracking.</p>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" data-od-id="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="start.html" aria-label="equicrew smart energy – Startseite">
+          <img class="brand-mark" src="assets/equicrew-icon.svg" width="31" height="31" alt="">
+          <span>
+            <span class="brand-word">equicrew</span>
+            <span class="brand-sub">smart energy</span>
+          </span>
+        </a>
+        <p>Smarte Energie und fair verteilte KI. Für Häuser, die mitdenken – und für die Chancen der nächsten Generation.</p>
+        <div class="social-row">
+          <a class="social-link" href="https://www.linkedin.com/company/equicrew/" target="_blank" rel="noopener noreferrer" aria-label="EquiCrew auf LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3.5a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM20 13.27c0-3.53-1.88-5.17-4.4-5.17-2.03 0-2.94 1.12-3.45 1.9V8.5H8.77V20h3.38v-6.42c0-1.7.32-3.35 2.43-3.35 2.08 0 2.1 1.95 2.1 3.46V20H20v-6.73Z"/></svg>
+          </a>
+          <a class="social-link" href="https://www.instagram.com/equicrew_com/" target="_blank" rel="noopener noreferrer" aria-label="EquiCrew auf Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.6" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-title">Navigation</p>
+        <nav class="footer-links" aria-label="Footer-Navigation">
+          <a href="start.html">Start</a>
+          <a href="equicube.html">EquiCube</a>
+          <a href="ueber-uns.html">Über uns</a>
+        </nav>
+      </div>
+      <div>
+        <p class="footer-title">Service</p>
+        <div class="footer-links">
+          <a href="kontakt.html">Kontakt</a>
+          <a href="impressum.html">Impressum</a>
+          <a href="admin-login.html">Interner Bereich</a>
+        </div>
+      </div>
+      <div>
+        <p class="footer-title">Kontakt</p>
+        <address class="footer-contact">
+          <span>Marktplatz 14<br>4310 Mauthausen<br>Österreich</span>
+          <a href="tel:+436504593129">+43&nbsp;650&nbsp;4593&nbsp;129</a>
+          <a href="mailto:office@equicrew.com">office@equicrew.com</a>
+        </address>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span data-current-year>2026</span> EquiCrew FlexCo · Mauthausen</span>
+      <div>
+        <a href="impressum.html">Impressum</a>
+        <a href="admin-login.html">Interner Bereich</a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

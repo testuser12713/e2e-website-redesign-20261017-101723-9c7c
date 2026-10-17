@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="screen-route" content="/intern">
+  <title>Posteingang – EquiCrew Intern</title>
+  <meta name="description" content="Interner Posteingang von EquiCrew: alle Anfragen aus dem Kontaktformular, neueste zuerst.">
+  <link rel="icon" href="assets/equicrew-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body class="admin-page">
+<!-- serves: AC-07, AC-10, AC-12, AC-14, AC-15, AC-16, AC-17, AC-18, AC-19 -->
+<a class="skip-link" href="#main">Zum Inhalt springen</a>
+<div class="admin-shell">
+  <aside class="admin-sidebar" aria-label="Interne Navigation" data-od-id="admin-sidebar">
+    <a class="admin-brand" href="admin-inbox.html" aria-label="equicrew intern – Posteingang">
+      <img class="brand-mark" src="assets/equicrew-icon.svg" width="31" height="31" alt="">
+      <span>
+        <span class="brand-word">equicrew</span>
+        <span class="brand-sub">intern</span>
+      </span>
+    </a>
+
+    <p class="admin-context">Anfragen verwalten</p>
+    <nav class="admin-nav" aria-label="Interner Bereich">
+      <a href="admin-inbox.html" aria-current="page">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4h11A1.5 1.5 0 0 1 17 5.5v9a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 14.5v-9Z" stroke="currentColor" stroke-width="1.5"/><path d="m3.6 6 6.4 4.5L16.4 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Posteingang</span>
+        <span class="nav-count" data-nav-count>0</span>
+      </a>
+    </nav>
+
+    <div class="admin-sidebar-bottom">
+      <div class="admin-account">
+        <span class="avatar" aria-hidden="true">EC</span>
+        <div>
+          <p class="admin-account-name">EquiCrew Team</p>
+          <p class="admin-account-mail" data-admin-email>demo@equicrew.com</p>
+        </div>
+      </div>
+      <div class="admin-sidebar-actions">
+        <a class="sidebar-action" href="start.html" aria-label="Zur Website">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Zur Website</span>
+        </a>
+        <button class="sidebar-action" type="button" data-action="logout" aria-label="Abmelden">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M8 4H5.5A1.5 1.5 0 0 0 4 5.5v9A1.5 1.5 0 0 0 5.5 16H8M12.5 13l3-3-3-3M15 10H8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Abmelden</span>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="admin-main" id="main">
+    <div class="admin-topbar">
+      <span class="topbar-context">Interner Bereich <span aria-hidden="true">/</span> Posteingang</span>
+      <a href="start.html">
+        <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7 4H5.5A1.5 1.5 0 0 0 4 5.5v9A1.5 1.5 0 0 0 5.5 16H7M12 13l3-3-3-3M15 10H8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Zur Website
+      </a>
+    </div>
+
+    <header class="admin-header">
+      <div>
+        <span class="kicker">Anfragen</span>
+        <h1>Posteingang</h1>
+      </div>
+      <p class="admin-header-meta">
+        <span><strong data-inquiry-count>0</strong> Anfragen</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span><strong data-new-count>0</strong> neu</span>
+      </p>
+    </header>
+
+    <section class="admin-panel" aria-labelledby="inbox-panel-title" data-od-id="inbox-panel">
+      <div class="panel-head">
+        <h2 class="panel-title" id="inbox-panel-title">
+          <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4h11A1.5 1.5 0 0 1 17 5.5v9a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 14.5v-9Z" stroke="currentColor" stroke-width="1.5"/><path d="m3.6 6 6.4 4.5L16.4 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Alle Anfragen
+        </h2>
+        <span class="panel-order">Neueste zuerst</span>
+      </div>
+
+      <div class="table-scroll">
+        <table class="inbox-table" data-inbox-table>
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">E-Mail</th>
+              <th scope="col">Eingang</th>
+              <th scope="col">Nachricht</th>
+              <th scope="col">Status</th>
+              <th scope="col"><span class="sr-only">Aktion</span></th>
+            </tr>
+          </thead>
+          <tbody data-inbox-body></tbody>
+        </table>
+      </div>
+
+      <div class="empty-state" data-inbox-empty hidden>
+        <span class="empty-state-icon" aria-hidden="true">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M3 5.5A1.5 1.5 0 0 1 4.5 4h11A1.5 1.5 0 0 1 17 5.5v9a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 3 14.5v-9Z" stroke="currentColor" stroke-width="1.5"/><path d="m3.6 6 6.4 4.5L16.4 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <h2>Noch keine Anfragen</h2>
+        <p>Sobald jemand das Kontaktformular auf der Website ausfüllt, erscheint die Anfrage hier.</p>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>
