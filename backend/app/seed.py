@@ -6,20 +6,27 @@ startup and never from the test suite.
 """
 
 import argparse
+import os
 import sys
 from collections.abc import Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime, timedelta
+from pathlib import Path
 
-from sqlalchemy import func, select
+from sqlalchemy import create_engine, func, select
+from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session as DatabaseSession
+from sqlalchemy.orm import sessionmaker
 
-from app.db import Base, SessionLocal, engine
+from app.db import Base
 from app.models import Inquiry, User
 from app.security import hash_password, normalize_email
 
 DEMO_EMAIL = "demo@equicrew.com"
 DEMO_PASSWORD = "EquiCrew-Demo-2026"
+
+BACKEND_DIR = Path(__file__).resolve().parent.parent
+DEFAULT_DATABASE_FILENAME = "equicrew.db"
 
 
 @dataclass(frozen=True)
@@ -466,6 +473,43 @@ class SeedResult:
     inquiries_created: int
 
 
+def database_url() -> str:
+    """Return the seed's database URL, anchored where the API resolves its own.
+
+    The API runs with ``backend/`` as its working directory, so its relative
+    SQLite URL points at ``backend/equicrew.db``. The seed command must fill
+    that same file even when it is started from the repository root, otherwise
+    it seeds a second, orphaned database and the API's inbox stays empty. A
+    relative SQLite path is therefore resolved against the backend directory;
+    configured absolute URLs and non-SQLite URLs are kept unchanged.
+    """
+    raw = os.environ.get("EQUICREW_DATABASE_URL", "").strip()
+    if not raw or "${" in raw:
+        raw = f"sqlite:///./{DEFAULT_DATABASE_FILENAME}"
+    if raw.startswith("sqlite:///"):
+        target = raw[len("sqlite:///") :]
+        if target and target != ":memory:" and not Path(target).is_absolute():
+            return f"sqlite:///{(BACKEND_DIR / target).resolve().as_posix()}"
+    return raw
+
+
+def _seed_engine(url: str) -> Engine:
+    """Build the engine for a seed run, with the SQLite options the API uses."""
+    options: dict[str, object] = {"pool_pre_ping": True}
+    if url.startswith("sqlite"):
+        options["connect_args"] = {"check_same_thread": False}
+    return create_engine(url, **options)
+
+
+def _inquiry_exists(db: DatabaseSession, fixture: InquiryFixture) -> bool:
+    """Return whether this demo inquiry is already stored."""
+    statement = select(Inquiry.id).where(
+        func.lower(Inquiry.email) == fixture.email.lower(),
+        Inquiry.message == fixture.message,
+    )
+    return db.scalar(statement) is not None
+
+
 def seed_database(db: DatabaseSession, now: datetime | None = None) -> SeedResult:
     """Insert the demo account and any missing demo inquiries, in one transaction."""
     base_time = now or datetime.now(UTC)
@@ -475,15 +519,9 @@ def seed_database(db: DatabaseSession, now: datetime | None = None) -> SeedResul
     if account_created:
         db.add(User(email=normalize_email(DEMO_EMAIL), password_hash=hash_password(DEMO_PASSWORD)))
 
-    existing = {
-        (email.lower(), message)
-        for email, message in db.execute(select(Inquiry.email, Inquiry.message)).all()
-    }
-
     inquiries_created = 0
     for fixture in DEMO_INQUIRIES:
-        key = (fixture.email.lower(), fixture.message)
-        if key in existing:
+        if _inquiry_exists(db, fixture):
             continue
         db.add(
             Inquiry(
@@ -495,7 +533,6 @@ def seed_database(db: DatabaseSession, now: datetime | None = None) -> SeedResul
                 created_at=base_time - timedelta(days=fixture.days_ago, hours=fixture.hours_ago),
             )
         )
-        existing.add(key)
         inquiries_created += 1
 
     db.commit()
@@ -513,15 +550,20 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: Sequence[str] | None = None) -> int:
     """Run the seed command and return its process exit code."""
     build_parser().parse_args(argv)
-    Base.metadata.create_all(bind=engine)
+    engine = _seed_engine(database_url())
+    session_factory = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
 
-    with SessionLocal() as db:
-        try:
-            result = seed_database(db)
-        except Exception as exc:
-            db.rollback()
-            print(f"error: could not seed the database: {exc}", file=sys.stderr)
-            return 1
+    try:
+        Base.metadata.create_all(bind=engine)
+        with session_factory() as db:
+            try:
+                result = seed_database(db)
+            except Exception as exc:
+                db.rollback()
+                print(f"error: could not seed the database: {exc}", file=sys.stderr)
+                return 1
+    finally:
+        engine.dispose()
 
     if result.account_created:
         print(f"Created demo account {DEMO_EMAIL}.")
