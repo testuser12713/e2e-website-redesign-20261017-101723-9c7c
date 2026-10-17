@@ -102,7 +102,7 @@ describe("frontend shell", () => {
     renderAt("/intern");
 
     expect(
-      await screen.findByRole("heading", { name: "Anmeldung" }),
+      await screen.findByRole("heading", { name: "Willkommen zurück." }),
     ).toBeInTheDocument();
 
     await waitFor(() => {
