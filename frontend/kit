@@ -1,0 +1,8 @@
+/**
+ * Root-level entry point for the development-only `/kit` gallery route.
+ *
+ * The gallery component itself is the shared module in
+ * `src/kit/Gallery.tsx`; this file re-exports it so the route remains
+ * addressable from the frontend root without duplicating any UI code.
+ */
+export { default } from "./src/kit/Gallery";

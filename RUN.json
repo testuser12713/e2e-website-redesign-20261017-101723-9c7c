@@ -7,7 +7,15 @@
       "stack": "python",
       "kind": "server",
       "install": [
-        ["${python}", "-m", "pip", "install", "-q", "-r", "requirements.txt"]
+        [
+          "${python}",
+          "-m",
+          "pip",
+          "install",
+          "-q",
+          "-r",
+          "requirements.txt"
+        ]
       ],
       "start": [
         "${python}",
@@ -22,18 +30,98 @@
       "port": 8000,
       "health": {
         "path": "/api/health",
-        "expect_status": [200]
+        "expect_status": [
+          200
+        ]
       },
       "env": {
-        "EQUICREW_DATABASE_URL": {"dev": "sqlite:///./equicrew.db"},
-        "EQUICREW_FRONTEND_ORIGIN": {"dev": "${service:web.origin}"},
-        "EQUICREW_SESSION_TTL_HOURS": {"dev": "8"}
+        "EQUICREW_DATABASE_URL": {
+          "dev": "sqlite:///./equicrew.db"
+        },
+        "EQUICREW_FRONTEND_ORIGIN": {
+          "dev": "${service:web.origin}"
+        },
+        "EQUICREW_SESSION_TTL_HOURS": {
+          "dev": "8"
+        }
       },
-      "test": [["${python}", "-m", "pytest", "-q"]],
+      "test": [
+        [
+          "${python}",
+          "-m",
+          "pytest",
+          "-q"
+        ]
+      ],
       "lint": [
-        ["${python}", "-m", "ruff", "format", "--check", "."],
-        ["${python}", "-m", "ruff", "check", "."]
+        [
+          "${python}",
+          "-m",
+          "ruff",
+          "format",
+          "--check",
+          "."
+        ],
+        [
+          "${python}",
+          "-m",
+          "ruff",
+          "check",
+          "."
+        ]
       ]
+    },
+    {
+      "name": "web",
+      "dir": "frontend",
+      "stack": "web-vite",
+      "kind": "server",
+      "install": [
+        [
+          "npm",
+          "ci",
+          "--no-audit",
+          "--no-fund"
+        ]
+      ],
+      "build": [
+        [
+          "npm",
+          "run",
+          "build"
+        ]
+      ],
+      "test": [
+        [
+          "npm",
+          "test"
+        ]
+      ],
+      "start": [
+        "npm",
+        "run",
+        "dev",
+        "--",
+        "--host",
+        "0.0.0.0",
+        "--port",
+        "${PORT}",
+        "--strictPort"
+      ],
+      "port": 5173,
+      "port_env": "PORT",
+      "health": {
+        "path": "/",
+        "expect_status": [
+          200
+        ]
+      },
+      "ready_timeout_s": 60,
+      "env": {
+        "VITE_API_BASE_URL": {
+          "dev": "${service:api.origin}"
+        }
+      }
     }
   ]
 }
