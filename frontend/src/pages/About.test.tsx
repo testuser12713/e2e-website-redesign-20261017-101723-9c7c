@@ -54,6 +54,23 @@ describe("About page", () => {
     expect(description?.content).toContain("Christian Hinterreiter");
   });
 
+  it("shows recognisable imagery in the team figure", () => {
+    renderAbout();
+
+    const section = document.querySelector<HTMLElement>(
+      '[data-od-id="about-team-photo"]',
+    );
+    expect(section).not.toBeNull();
+
+    const figure = section?.querySelector("figure");
+    expect(figure).not.toBeNull();
+
+    const image = within(figure as HTMLElement).getByRole("img");
+    expect(image.getAttribute("src")).toMatch(/^\/media\/.+\.jpe?g$/);
+    expect(image).toHaveAttribute("alt");
+    expect(image.getAttribute("alt")).not.toBe("");
+  });
+
   it.each(FOUNDERS)(
     "shows %s with role, e-mail and initials avatar",
     (name, email, initials) => {

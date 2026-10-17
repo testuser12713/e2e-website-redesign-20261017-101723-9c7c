@@ -125,10 +125,10 @@ export default function About() {
       >
         <figure className="about-team__figure">
           <img
-            src="/media/3a55ef-12e8654dd7424476a506c0e5f67670fd-mv2.jpg"
+            src="/media/3a55ef-fc3d47482d204345a36da00e723fcd45f000.jpg"
             width={2228}
             height={1294}
-            alt=""
+            alt="EquiCrew Logo auf grünem Hintergrund"
           />
           <figcaption className="about-team__caption">
             <span>Die Menschen hinter EquiCrew – gemeinsam in Mauthausen.</span>
