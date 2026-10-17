@@ -1,50 +1,66 @@
 import { Link } from "react-router-dom";
+import Brand from "../Brand";
+import SocialLinks from "../SocialLinks";
+import "./SiteFooter.css";
 
 export default function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="site-footer">
-      <div className="site-footer__inner container">
-        <div>
-          <p className="site-footer__brand">EquiCrew</p>
-          <p className="site-footer__tagline">
-            smarte energie · fair verteilte KI
-          </p>
-        </div>
-        <div>
-          <h2 className="site-footer__heading">Kontakt</h2>
-          <address>
-            Marktplatz 14
-            <br />
-            4310 Mauthausen
-            <br />
-            <a href="tel:+436504593129">+43 650 4593 129</a>
-            <br />
-            <a href="mailto:office@equicrew.com">office@equicrew.com</a>
-          </address>
-        </div>
-        <nav aria-label="Footer-Navigation">
-          <h2 className="site-footer__heading">Seiten</h2>
-          <ul className="site-footer__list">
-            <li>
+    <footer className="site-footer ec-footer">
+      <div className="container">
+        <div className="footer-grid">
+          <div className="footer-brand">
+            <Brand tone="dark" />
+            <p>
+              Smarte Energie und fair verteilte KI. Für Häuser, die mitdenken –
+              und für die Chancen der nächsten Generation.
+            </p>
+            <SocialLinks />
+          </div>
+
+          <div>
+            <p className="footer-title">Navigation</p>
+            <nav className="footer-links" aria-label="Footer-Navigation">
+              <Link to="/">Start</Link>
               <Link to="/equicube">EquiCube</Link>
-            </li>
-            <li>
               <Link to="/ueber-uns">Über uns</Link>
-            </li>
-            <li>
+            </nav>
+          </div>
+
+          <div>
+            <p className="footer-title">Service</p>
+            <div className="footer-links">
               <Link to="/kontakt">Kontakt</Link>
-            </li>
-            <li>
               <Link to="/impressum">Impressum</Link>
-            </li>
-          </ul>
-        </nav>
+              <Link to="/intern/login">Interner Bereich</Link>
+            </div>
+          </div>
+
+          <div>
+            <p className="footer-title">Kontakt</p>
+            <address className="footer-contact">
+              <span>
+                Marktplatz 14
+                <br />
+                4310 Mauthausen
+                <br />
+                Österreich
+              </span>
+              <a href="tel:+436504593129">+43&nbsp;650&nbsp;4593&nbsp;129</a>
+              <a href="mailto:office@equicrew.com">office@equicrew.com</a>
+            </address>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <span>© {year} EquiCrew FlexCo · Mauthausen</span>
+          <div>
+            <Link to="/impressum">Impressum</Link>
+            <Link to="/intern/login">Interner Bereich</Link>
+          </div>
+        </div>
       </div>
-      <p className="site-footer__copyright container">
-        © {year} EquiCrew FlexCo
-      </p>
     </footer>
   );
 }

@@ -1,0 +1,125 @@
+.site-footer.ec-footer {
+  margin-top: clamp(56px, 8vw, 112px);
+  padding-block: 64px 30px;
+  border-top: 0;
+  background: var(--color-dark);
+  color: var(--color-on-dark);
+}
+
+.ec-footer .footer-grid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.5fr) repeat(2, minmax(0, 0.7fr))
+    minmax(0, 1.1fr);
+  gap: 44px;
+}
+
+.ec-footer .footer-brand p {
+  max-width: 34ch;
+  margin-top: 20px;
+  color: var(--color-dark-muted);
+  font-size: 0.9rem;
+}
+
+.ec-footer .footer-title {
+  margin-bottom: 18px;
+  color: var(--color-dark-muted);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ec-footer .footer-links {
+  display: grid;
+  gap: 10px;
+}
+
+.ec-footer .footer-links a {
+  color: var(--color-dark-link);
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: color 180ms var(--ease);
+}
+
+.ec-footer .footer-links a:hover {
+  color: var(--color-brand);
+}
+
+.ec-footer .footer-contact {
+  display: grid;
+  gap: 10px;
+  color: var(--color-dark-link);
+  font-size: 0.88rem;
+  font-style: normal;
+}
+
+.ec-footer .footer-contact a {
+  color: var(--color-dark-link);
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.ec-footer .footer-contact a:hover {
+  color: var(--color-brand);
+}
+
+.ec-footer .social-row {
+  margin-top: 20px;
+}
+
+.ec-footer .footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 52px;
+  padding-top: 22px;
+  border-top: 1px solid var(--color-dark-line);
+  color: var(--color-dark-muted);
+  font-size: 0.76rem;
+}
+
+.ec-footer .footer-bottom div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.ec-footer .footer-bottom a {
+  color: var(--color-dark-muted);
+  text-decoration: none;
+}
+
+.ec-footer .footer-bottom a:hover {
+  color: var(--color-brand);
+}
+
+@media (max-width: 780px) {
+  .ec-footer .footer-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 34px;
+  }
+
+  .ec-footer .footer-brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .ec-footer .footer-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .ec-footer .footer-brand {
+    grid-column: auto;
+  }
+
+  .ec-footer .footer-bottom {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

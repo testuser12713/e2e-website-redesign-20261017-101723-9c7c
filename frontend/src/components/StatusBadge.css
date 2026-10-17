@@ -1,0 +1,48 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 26px;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 0.73rem;
+  font-weight: 650;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.badge-new {
+  background: var(--color-status-new-bg);
+  color: var(--color-status-new);
+}
+
+.badge-new::before {
+  background: var(--color-status-new-dot);
+}
+
+.badge-read {
+  background: var(--color-status-read-bg);
+  color: var(--color-status-read);
+}
+
+.badge-read::before {
+  background: var(--color-status-read-dot);
+}
+
+.badge-done {
+  background: var(--color-status-done-bg);
+  color: var(--color-status-done);
+}
+
+.badge-done::before {
+  background: var(--color-status-done-dot);
+}
